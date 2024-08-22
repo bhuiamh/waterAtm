@@ -8,6 +8,7 @@
 void initiateLcd();
 //void printCardIdOnLcd(byte * id);
 void printcard( unsigned long int cardIDinDec);
+void ethernetNotConnected();
 void printCardRemovalMessage(float amount, float cost, float balance);
 void printWelcomeMessage();
 void printWaterStatus(float amount, float cardBalance);

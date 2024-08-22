@@ -24,15 +24,14 @@ void setup() {
   initiateSolenoid();
   initiateEthernet();
   initiateRfid();
-  timeClient.begin(); //for utc epoch timestamp
-
+  timeClient.begin();  //for utc epoch timestamp
   initiateMqtt(mqttServer, subscription_topic);
 }
 
 void loop() {
   mqloop();
   timeClient.update();
- 
+
   if (!cardDetected()) {
 
     if (cardPlaced) {
@@ -56,7 +55,7 @@ void loop() {
   }
 
   else {
-   // checkinternet(subscription_topic);
+    // checkinternet(subscription_topic);
     cardPlaced = true;  // Flag is made true for detecting the same card again while checking card presence
     if (!sentCardUidToBroker) {
       if (!cardRead) {
@@ -84,9 +83,37 @@ void loop() {
 
         //Sending Verification Request to Server
         if (checkinternet(subscription_topic)) {
-          sendMsg(topic_verify, msg_verify);
-          sentCardUidToBroker = true;
+
+          if (pendingCardBalance) {
+            Serial.print("Hello Musa 11111111111111111111111111111111111111111111111111111111");
+            timeStamp = timeClient.getEpochTime();
+            config["Time"] = timeStamp;
+            config["MessageType"] = 2;
+            config["Dispensed"] = amountOfWaterDispensed;
+            config["Dispensed"] = 4.4;
+
+            serializeJson(config, msg_dispense);
+            Serial.println(msg_dispense);
+
+            if (checkinternet(subscription_topic)) {
+              sendMsg(topic_dispense, msg_dispense);
+
+              Serial.print("444444444444444444444444444444444444444444444444444444444444444");
+              Serial.print(2);
+            } else {
+              printNetError();
+              delay(TIME_TO_SHOW_AUTHORIZATION_ERROR);
+              Serial.print("3333333333333333333333333333333333333333333333333333333333333333");
+            }
+            pendingCardBalance = false;
+          } else {
+            sendMsg(topic_verify, msg_verify);
+            sentCardUidToBroker = true;
+            Serial.print("55555555555555555555555555555555555555555555555555555555555555555555555555555");
+          }
         } else {
+          // pendingCardBalance = true;
+          Serial.print("Hello Musa 2222222222222222222222222222222222222222222222222222222222222");
           printConnectionError();
           delay(TIME_TO_SHOW_AUTHORIZATION_ERROR);
         }
@@ -126,7 +153,7 @@ void loop() {
       if ((amountOfWaterDispensed < cardBalance) && cardIsAuthorized) {
         amountOfWaterDispensed = measureWaterDispensed();
         costOfWater = amountOfWaterDispensed * COST_PER_LITRE_OF_WATER;
-      printWaterStatus(amountOfWaterDispensed, cardBalance);
+        printWaterStatus(amountOfWaterDispensed, cardBalance);
 
 
       } else {
@@ -163,7 +190,7 @@ void sendcardbalance() {
 
   serializeJson(config, msg_dispense);
   Serial.println(msg_dispense);
- 
+
   if (checkinternet(subscription_topic)) {
     sendMsg(topic_dispense, msg_dispense);
 

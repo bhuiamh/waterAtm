@@ -5,29 +5,32 @@
 #include <ArduinoJson.h>
 #include <EthernetENC.h>
 
-extern  bool cardPlaced ; // to avoid same card presence checking error
-extern  bool sentCardUidToBroker; //to check if verification msg is sent
+extern bool cardPlaced;           // to avoid same card presence checking error
+extern bool sentCardUidToBroker;  //to check if verification msg is sent
 
-extern  float amountOfWaterDispensed; // variable for storing amount of water dispensed
-extern  float costOfWater ;           // variable for calculating water cost
-extern double cardBalance ;   // variable to store the remaining balance on card
+extern float amountOfWaterDispensed;                             // variable for storing amount of water dispensed
+extern float costOfWater;                                        // variable for calculating water cost
+extern double cardBalance;                                       // variable to store the remaining balance on card
 
 
-extern bool rfidReaderOk ;
-extern bool cardRead ;
-extern bool interStatusReceived ; //internet status
-extern bool cardIsValid; // test variable to generate acknowledgement condition from broker
-extern bool cardIsAuthorized ;
-extern bool balanceError ;
+extern bool rfidReaderOk;
+extern bool cardRead;
+extern bool interStatusReceived;  //internet status
+extern bool cardIsValid;          // test variable to generate acknowledgement condition from broker
+extern bool cardIsAuthorized;
+extern bool balanceError;
 extern bool flowSensorIsOn;  // flag to check if the flow sensor has been turned on
-extern bool callbackReceived ;
+extern bool callbackReceived;
 extern JsonDocument reply;
-extern  unsigned long timeStamp;
+extern unsigned long timeStamp;
 
 
+extern bool pendingCardBalance;                                  // flag to check pending message stored or not (BHUIA)
+extern float pendingCardBalanceLitter;                           // variable for unsent dispence water amount (BHUIA)
 
-extern  char* topic_verify;
-extern  char* topic_dispense;
+
+extern char* topic_verify;
+extern char* topic_dispense;
 
 
 
@@ -39,11 +42,11 @@ extern  char* topic_dispense;
 extern unsigned long int cardId;
 
 
-extern String brokerMsg; 
+extern String brokerMsg;
 extern JsonDocument config;
 extern JsonDocument docs;
 
-extern char msg_verify[256]; 
+extern char msg_verify[256];
 extern char msg_dispense[256];
 
 
@@ -51,11 +54,10 @@ extern char msg_dispense[256];
 extern IPAddress mqttServer;
 extern String deviceId;
 
-extern String topic_sub ;
+extern String topic_sub;
 extern const char* subscription_topic;
 
 
 void resetflags();
 
 #endif
-

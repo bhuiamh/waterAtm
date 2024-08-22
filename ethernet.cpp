@@ -10,8 +10,16 @@ void initiateEthernet()
   Ethernet.init(Ethernet_PIN);
   Ethernet.begin(mac);
   delay(1000);
-  Serial.print("Initialize Ethernet. DHCP IP: ");
-  Serial.println(Ethernet.localIP());
+  // Serial.print("Initialize Ethernet. DHCP IP: ");
+  // Serial.println(Ethernet.localIP());
+
+   if (Ethernet.linkStatus() == LinkON) {
+    Serial.print("Ethernet connected. DHCP IP: ");
+    Serial.println(Ethernet.localIP());
+  } else {
+    Serial.println("Ethernet cable not connected.");
+    ethernetNotConnected();
+  }
 
 }
 void initiateMqtt(IPAddress mqttServer, char* sub_topic)
@@ -94,6 +102,7 @@ bool checkinternet(char* sub_topic) {
   } else {
     // If Ethernet link is OFF
     Serial.println("Link off");
+    pendingCardBalance = true;
 
     return false;
   }
@@ -103,6 +112,8 @@ bool checkinternet(char* sub_topic) {
 void sendMsg(char* topic, char msg[])
 {
   mqclient.publish(topic, msg);
+  Serial.print("I am working..............................");
+  Serial.print(msg);
 
 }
 

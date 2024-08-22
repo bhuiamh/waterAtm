@@ -9,6 +9,18 @@ String inputMessage;
 void initiateLcd(){
   lcd.init();
   lcd.backlight();
+  lcd.backlight();
+  lcd.setCursor(0, 0);
+  lcd.print("System is botting...");
+  lcd.setCursor(0, 1);
+  lcd.print("Please Wait");
+}
+
+// Internet not connected message
+void ethernetNotConnected(){
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Ethernet Failed !");
 }
 
 // void printCardIdOnLcd(byte * id){
@@ -36,17 +48,18 @@ void printcard( unsigned long int cardIDinDec)
 void printCardRemovalMessage(float amount, float cost, float balance){
   lcd.clear();
   lcd.setCursor(0,0);
-  lcd.print("Balance:");
-  lcd.setCursor(9,0);
-  lcd.print(balance - amount);
-  lcd.setCursor(16,0);
-  lcd.print("L");
-  lcd.setCursor(0,1);
   lcd.print("Dispensed:");
-  lcd.setCursor(11,1);
+  lcd.setCursor(11,0);
   lcd.print(amount);
-  lcd.setCursor(17,1);
+  lcd.setCursor(17,0);
   lcd.print('L');
+  lcd.setCursor(0,1);
+  lcd.print("Balance:");
+  lcd.setCursor(11,1);
+  lcd.print(balance - amount);
+  lcd.setCursor(17,1);
+  lcd.print("L");
+  
 //  lcd.setCursor(0,2);
 //  lcd.print("Cost:");
 //  lcd.setCursor(6,2);
@@ -76,11 +89,13 @@ void printWaterStatus(float amount, float cardBalance){
   lcd.print("Balance:");
   lcd.setCursor(11, 0);
   lcd.print(cardBalance);
+  lcd.setCursor(17,0);
+  lcd.print('L'); 
   lcd.setCursor(0,1);
-  lcd.print("Dispensed:");
-  lcd.setCursor(11,1);
+  lcd.print("Dispensing:");
+  lcd.setCursor(12,1);
   lcd.print(amount);
-  lcd.setCursor(16,1);
+  lcd.setCursor(17,1);
   lcd.print('L'); 
 }
 
