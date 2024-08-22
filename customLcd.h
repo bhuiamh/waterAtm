@@ -1,5 +1,5 @@
 #include "globalPinDefinitions.h"
-#include <Wire.h> 
+#include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 #include <Arduino.h>
 
@@ -7,7 +7,7 @@
 
 void initiateLcd();
 //void printCardIdOnLcd(byte * id);
-void printcard( unsigned long int cardIDinDec);
+void printcard(unsigned long int cardIDinDec);
 void ethernetNotConnected();
 void printCardRemovalMessage(float amount, float cost, float balance);
 void printWelcomeMessage();
@@ -19,6 +19,9 @@ void printWaitMessage();
 void printConnectionError();
 void printNetError();
 void printRfidReaderError();
+
+// showing unsent message information (BHUIA)
+void printAgainPlaceCard();
 
 
 

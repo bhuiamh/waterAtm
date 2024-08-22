@@ -112,8 +112,7 @@ bool checkinternet(char* sub_topic) {
 void sendMsg(char* topic, char msg[])
 {
   mqclient.publish(topic, msg);
-  Serial.print("I am working..............................");
-  Serial.print(msg);
+ 
 
 }
 

@@ -76,10 +76,19 @@ void printWelcomeMessage(){
   lcd.print("Please place a card!");
 }
 
+
 void printWaitMessage(){
   lcd.clear();
   lcd.setCursor(0,0);
   lcd.print("   Please wait...");
+}
+
+
+// showing unsent message information (BHUIA)
+void printAgainPlaceCard (){
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("  Place card again");
 }
 
 void printWaterStatus(float amount, float cardBalance){
